@@ -1,18 +1,18 @@
-# Issues and Feature Requests
+# Issue と機能リクエスト
 
-## Issue #1: Add “Support” Menu Item
+## Issue #1: 「サポート」メニュー項目の追加
 
-Create a new GitHub issue to implement a “Support” menu item in the main navigation. The “Support” section should include the following key components:
+メインナビゲーションに「サポート」メニュー項目を実装する新しい GitHub Issue を作成します。「サポート」セクションには、以下の主要コンポーネントを含める必要があります：
 
-- **FAQ Page**: A dedicated page addressing frequently asked questions to assist users with common queries.
-- **Enquiry Form**: An interactive form allowing users to submit their support requests or feedback directly.
-- **Contact Information**: A section displaying relevant contact details for further assistance.
+- **FAQ ページ**: よくある質問に対応し、一般的な問い合わせでユーザーを支援する専用ページ。
+- **問い合わせフォーム**: ユーザーがサポートリクエストやフィードバックを直接送信できるインタラクティブなフォーム。
+- **連絡先情報**: さらなる支援のための関連する連絡先詳細を表示するセクション。
 
 ---
 
-## Issue #2: Advanced Filtering in Search Menu
+## Issue #2: 検索メニューの高度なフィルタリング
 
-Create advanced filtering options in the search menu including the following search options:
+以下の検索オプションを含む検索メニューに高度なフィルタリングオプションを作成します：
 
-1. **Search by Country**
-2. **Add a new category “Food”** under Category filter
+1. **国別検索**
+2. **カテゴリフィルターに新しいカテゴリ「Food」を追加**

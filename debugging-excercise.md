@@ -1,9 +1,9 @@
-# Debugging Exercise: Minimum Rating Filter Issue
+# デバッグ演習：最小評価フィルタの問題
 
-## Scenario
-A user is reporting that the "Minimum Rating" filter in the trip search does not filter results properly.Search 4.8+ Starts in Particular
+## シナリオ
+ユーザーから、旅行検索の「最小評価」フィルターが結果を適切にフィルタリングしていないと報告があります。特に 4.8+ の検索で問題が発生しています。
 
 
 
-## Reference
-See notes.md for related feature requests and issue tracking guidelines.
+## 参照
+関連する機能リクエストと Issue 追跡ガイドラインについては notes.md を参照してください。

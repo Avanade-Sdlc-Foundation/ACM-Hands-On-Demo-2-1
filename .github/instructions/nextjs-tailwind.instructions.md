@@ -1,72 +1,72 @@
 ---
-description: 'Next.js + Tailwind development standards and instructions'
+description: 'Next.js + Tailwind 開発標準と指示'
 applyTo: '**/*.tsx, **/*.ts, **/*.jsx, **/*.js, **/*.css'
 ---
 
-# Next.js + Tailwind Development Instructions
+# Next.js + Tailwind 開発指示
 
-Instructions for high-quality Next.js applications with Tailwind CSS styling and TypeScript.
+Tailwind CSS スタイリングと TypeScript を使用した高品質な Next.js アプリケーションのための指示。
 
-## Project Context
+## プロジェクトコンテキスト
 
-- Latest Next.js (App Router)
-- TypeScript for type safety
-- Tailwind CSS for styling
+- 最新の Next.js（App Router）
+- 型安全性のための TypeScript
+- スタイリングのための Tailwind CSS
 
-## Development Standards
+## 開発標準
 
-### Architecture
-- App Router with server and client components
-- Group routes by feature/domain
-- Implement proper error boundaries
-- Use React Server Components by default
-- Leverage static optimization where possible
+### アーキテクチャ
+- サーバーコンポーネントとクライアントコンポーネントを使用した App Router
+- 機能/ドメインごとにルートをグループ化
+- 適切なエラーバウンダリを実装
+- デフォルトで React Server Components を使用
+- 可能な場合は静的最適化を活用
 
 ### TypeScript
-- Strict mode enabled
-- Clear type definitions
-- Proper error handling with type guards
-- Zod for runtime type validation
+- Strict モード有効化
+- 明確な型定義
+- 型ガードによる適切なエラーハンドリング
+- ランタイム型検証のための Zod
 
-### Styling
-- Tailwind CSS with consistent color palette
-- Responsive design patterns
-- Dark mode support
-- Follow container queries best practices
-- Maintain semantic HTML structure
+### スタイリング
+- 一貫したカラーパレットの Tailwind CSS
+- レスポンシブデザインパターン
+- ダークモードサポート
+- コンテナクエリのベストプラクティスに従う
+- セマンティックな HTML 構造を維持
 
-### State Management
-- React Server Components for server state
-- React hooks for client state
-- Proper loading and error states
-- Optimistic updates where appropriate
+### 状態管理
+- サーバー状態のための React Server Components
+- クライアント状態のための React フック
+- 適切なローディングとエラー状態
+- 適切な場所での楽観的更新
 
-### Data Fetching
-- Server Components for direct database queries
-- React Suspense for loading states
-- Proper error handling and retry logic
-- Cache invalidation strategies
+### データフェッチング
+- 直接データベースクエリのための Server Components
+- ローディング状態のための React Suspense
+- 適切なエラーハンドリングとリトライロジック
+- キャッシュ無効化戦略
 
-### Security
-- Input validation and sanitization
-- Proper authentication checks
-- CSRF protection
-- Rate limiting implementation
-- Secure API route handling
+### セキュリティ
+- 入力検証とサニタイゼーション
+- 適切な認証チェック
+- CSRF 保護
+- レート制限の実装
+- 安全な API ルート処理
 
-### Performance
-- Image optimization with next/image
-- Font optimization with next/font
-- Route prefetching
-- Proper code splitting
-- Bundle size optimization
+### パフォーマンス
+- next/image による画像最適化
+- next/font によるフォント最適化
+- ルートプリフェッチング
+- 適切なコード分割
+- バンドルサイズの最適化
 
-## Implementation Process
-1. Plan component hierarchy
-2. Define types and interfaces
-3. Implement server-side logic
-4. Build client components
-5. Add proper error handling
-6. Implement responsive styling
-7. Add loading states
-8. Write tests
+## 実装プロセス
+1. コンポーネント階層を計画
+2. 型とインターフェースを定義
+3. サーバー側ロジックを実装
+4. クライアントコンポーネントを構築
+5. 適切なエラーハンドリングを追加
+6. レスポンシブスタイリングを実装
+7. ローディング状態を追加
+8. テストを記述

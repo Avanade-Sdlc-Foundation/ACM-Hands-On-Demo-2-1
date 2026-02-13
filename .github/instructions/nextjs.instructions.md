@@ -2,141 +2,141 @@
 applyTo: '**'
 ---
 
-# Next.js Best Practices for LLMs (2025)
+# LLM のための Next.js ベストプラクティス (2025)
 
-_Last updated: July 2025_
+_最終更新: 2025年7月_
 
-This document summarizes the latest, authoritative best practices for building, structuring, and maintaining Next.js applications. It is intended for use by LLMs and developers to ensure code quality, maintainability, and scalability.
+このドキュメントは、Next.js アプリケーションの構築、構造化、維持のための最新の権威あるベストプラクティスをまとめたものです。コード品質、保守性、スケーラビリティを確保するために、LLM と開発者が使用することを目的としています。
 
 ---
 
-## 1. Project Structure & Organization
+## 1. プロジェクト構造と組織
 
-- **Use the `app/` directory** (App Router) for all new projects. Prefer it over the legacy `pages/` directory.
-- **Top-level folders:**
-  - `app/` — Routing, layouts, pages, and route handlers
-  - `public/` — Static assets (images, fonts, etc.)
-  - `lib/` — Shared utilities, API clients, and logic
-  - `components/` — Reusable UI components
-  - `contexts/` — React context providers
-  - `styles/` — Global and modular stylesheets
-  - `hooks/` — Custom React hooks
-  - `types/` — TypeScript type definitions
-- **Colocation:** Place files (components, styles, tests) near where they are used, but avoid deeply nested structures.
-- **Route Groups:** Use parentheses (e.g., `(admin)`) to group routes without affecting the URL path.
-- **Private Folders:** Prefix with `_` (e.g., `_internal`) to opt out of routing and signal implementation details.
+- **`app/` ディレクトリを使用する**（App Router）すべての新しいプロジェクトで。レガシーの `pages/` ディレクトリよりも優先します。
+- **トップレベルフォルダ:**
+  - `app/` — ルーティング、レイアウト、ページ、ルートハンドラー
+  - `public/` — 静的アセット（画像、フォントなど）
+  - `lib/` — 共有ユーティリティ、API クライアント、ロジック
+  - `components/` — 再利用可能な UI コンポーネント
+  - `contexts/` — React コンテキストプロバイダー
+  - `styles/` — グローバルおよびモジュラースタイルシート
+  - `hooks/` — カスタム React フック
+  - `types/` — TypeScript 型定義
+- **コロケーション:** ファイル（コンポーネント、スタイル、テスト）を使用される場所の近くに配置しますが、深くネストされた構造は避けます。
+- **ルートグループ:** 括弧を使用して（例：`(admin)`）、URL パスに影響を与えずにルートをグループ化します。
+- **プライベートフォルダ:** `_` で始めて（例：`_internal`）、ルーティングからオプトアウトし、実装の詳細を示します。
 
-- **Feature Folders:** For large apps, group by feature (e.g., `app/dashboard/`, `app/auth/`).
-- **Use `src/`** (optional): Place all source code in `src/` to separate from config files.
+- **機能フォルダ:** 大規模なアプリの場合、機能ごとにグループ化します（例：`app/dashboard/`、`app/auth/`）。
+- **`src/` を使用**（オプション）: 設定ファイルと分離するために、すべてのソースコードを `src/` に配置します。
 
-## 2.1. Server and Client Component Integration (App Router)
+## 2.1. サーバーコンポーネントとクライアントコンポーネントの統合（App Router）
 
-**Never use `next/dynamic` with `{ ssr: false }` inside a Server Component.** This is not supported and will cause a build/runtime error.
+**サーバーコンポーネント内で `next/dynamic` と `{ ssr: false }` を決して使用しないでください。** これはサポートされておらず、ビルド/ランタイムエラーを引き起こします。
 
-**Correct Approach:**
-- If you need to use a Client Component (e.g., a component that uses hooks, browser APIs, or client-only libraries) inside a Server Component, you must:
-  1. Move all client-only logic/UI into a dedicated Client Component (with `'use client'` at the top).
-  2. Import and use that Client Component directly in the Server Component (no need for `next/dynamic`).
-  3. If you need to compose multiple client-only elements (e.g., a navbar with a profile dropdown), create a single Client Component that contains all of them.
+**正しいアプローチ:**
+- サーバーコンポーネント内でクライアントコンポーネント（フック、ブラウザAPI、またはクライアント専用ライブラリを使用するコンポーネントなど）を使用する必要がある場合は、次のようにする必要があります：
+  1. すべてのクライアント専用ロジック/UI を専用のクライアントコンポーネント（上部に `'use client'` を含む）に移動します。
+  2. そのクライアントコンポーネントをサーバーコンポーネントに直接インポートして使用します（`next/dynamic` は不要）。
+  3. 複数のクライアント専用要素（ナビゲーションバーとプロファイルドロップダウンなど）を構成する必要がある場合は、それらすべてを含む単一のクライアントコンポーネントを作成します。
 
-**Example:**
+**例:**
 
 ```tsx
-// Server Component
+// サーバーコンポーネント
 import DashboardNavbar from '@/components/DashboardNavbar';
 
 export default async function DashboardPage() {
-  // ...server logic...
+  // ...サーバーロジック...
   return (
     <>
-      <DashboardNavbar /> {/* This is a Client Component */}
-      {/* ...rest of server-rendered page... */}
+      <DashboardNavbar /> {/* これはクライアントコンポーネントです */}
+      {/* ...サーバーレンダリングされたページの残り... */}
     </>
   );
 }
 ```
 
-**Why:**
-- Server Components cannot use client-only features or dynamic imports with SSR disabled.
-- Client Components can be rendered inside Server Components, but not the other way around.
+**理由:**
+- サーバーコンポーネントは、クライアント専用機能や SSR が無効になっている動的インポートを使用できません。
+- クライアントコンポーネントはサーバーコンポーネント内にレンダリングできますが、その逆はできません。
 
-**Summary:**
-Always move client-only UI into a Client Component and import it directly in your Server Component. Never use `next/dynamic` with `{ ssr: false }` in a Server Component.
+**まとめ:**
+常にクライアント専用 UI をクライアントコンポーネントに移動し、サーバーコンポーネントに直接インポートします。サーバーコンポーネント内で `{ ssr: false }` を使用した `next/dynamic` は決して使用しないでください。
 
 ---
 
-## 2. Component Best Practices
+## 2. コンポーネントのベストプラクティス
 
-- **Component Types:**
-  - **Server Components** (default): For data fetching, heavy logic, and non-interactive UI.
-  - **Client Components:** Add `'use client'` at the top. Use for interactivity, state, or browser APIs.
-- **When to Create a Component:**
-  - If a UI pattern is reused more than once.
-  - If a section of a page is complex or self-contained.
-  - If it improves readability or testability.
-- **Naming Conventions:**
-  - Use `PascalCase` for component files and exports (e.g., `UserCard.tsx`).
-  - Use `camelCase` for hooks (e.g., `useUser.ts`).
-  - Use `snake_case` or `kebab-case` for static assets (e.g., `logo_dark.svg`).
-  - Name context providers as `XyzProvider` (e.g., `ThemeProvider`).
-- **File Naming:**
-  - Match the component name to the file name.
-  - For single-export files, default export the component.
-  - For multiple related components, use an `index.ts` barrel file.
-- **Component Location:**
-  - Place shared components in `components/`.
-  - Place route-specific components inside the relevant route folder.
-- **Props:**
-  - Use TypeScript interfaces for props.
-  - Prefer explicit prop types and default values.
-- **Testing:**
-  - Co-locate tests with components (e.g., `UserCard.test.tsx`).
+- **コンポーネントタイプ:**
+  - **サーバーコンポーネント**（デフォルト）: データフェッチング、重いロジック、非インタラクティブな UI 用。
+  - **クライアントコンポーネント:** 上部に `'use client'` を追加します。インタラクティビティ、状態、またはブラウザ API に使用します。
+- **コンポーネントを作成するタイミング:**
+  - UI パターンが複数回再利用される場合。
+  - ページのセクションが複雑または自己完結型である場合。
+  - 読みやすさやテスト可能性が向上する場合。
+- **命名規則:**
+  - コンポーネントファイルとエクスポートには `PascalCase` を使用します（例：`UserCard.tsx`）。
+  - フックには `camelCase` を使用します（例：`useUser.ts`）。
+  - 静的アセットには `snake_case` または `kebab-case` を使用します（例：`logo_dark.svg`）。
+  - コンテキストプロバイダーは `XyzProvider` と命名します（例：`ThemeProvider`）。
+- **ファイルの命名:**
+  - コンポーネント名をファイル名に一致させます。
+  - 単一エクスポートファイルの場合、コンポーネントをデフォルトエクスポートします。
+  - 複数の関連コンポーネントの場合、`index.ts` バレルファイルを使用します。
+- **コンポーネントの配置:**
+  - 共有コンポーネントは `components/` に配置します。
+  - ルート固有のコンポーネントは関連するルートフォルダ内に配置します。
+- **プロパティ:**
+  - プロパティには TypeScript インターフェースを使用します。
+  - 明示的なプロパティタイプとデフォルト値を優先します。
+- **テスト:**
+  - テストはコンポーネントと一緒に配置します（例：`UserCard.test.tsx`）。
 
-## 3. Naming Conventions (General)
+## 3. 命名規則（一般）
 
-- **Folders:** `kebab-case` (e.g., `user-profile/`)
-- **Files:** `PascalCase` for components, `camelCase` for utilities/hooks, `kebab-case` for static assets
-- **Variables/Functions:** `camelCase`
-- **Types/Interfaces:** `PascalCase`
-- **Constants:** `UPPER_SNAKE_CASE`
+- **フォルダ:** `kebab-case`（例：`user-profile/`）
+- **ファイル:** コンポーネントには `PascalCase`、ユーティリティ/フックには `camelCase`、静的アセットには `kebab-case`
+- **変数/関数:** `camelCase`
+- **タイプ/インターフェース:** `PascalCase`
+- **定数:** `UPPER_SNAKE_CASE`
 
-## 4. API Routes (Route Handlers)
+## 4. API ルート（ルートハンドラー）
 
-- **Prefer API Routes over Edge Functions** unless you need ultra-low latency or geographic distribution.
-- **Location:** Place API routes in `app/api/` (e.g., `app/api/users/route.ts`).
-- **HTTP Methods:** Export async functions named after HTTP verbs (`GET`, `POST`, etc.).
-- **Request/Response:** Use the Web `Request` and `Response` APIs. Use `NextRequest`/`NextResponse` for advanced features.
-- **Dynamic Segments:** Use `[param]` for dynamic API routes (e.g., `app/api/users/[id]/route.ts`).
-- **Validation:** Always validate and sanitize input. Use libraries like `zod` or `yup`.
-- **Error Handling:** Return appropriate HTTP status codes and error messages.
-- **Authentication:** Protect sensitive routes using middleware or server-side session checks.
+- **Edge Functions よりも API Routes を優先**、超低レイテンシーや地理的分散が必要でない限り。
+- **配置:** API ルートは `app/api/` に配置します（例：`app/api/users/route.ts`）。
+- **HTTP メソッド:** HTTP 動詞にちなんだ名前の非同期関数をエクスポートします（`GET`、`POST` など）。
+- **リクエスト/レスポンス:** Web `Request` および `Response` API を使用します。高度な機能には `NextRequest`/`NextResponse` を使用します。
+- **動的セグメント:** 動的 API ルートには `[param]` を使用します（例：`app/api/users/[id]/route.ts`）。
+- **検証:** 常に入力を検証しサニタイズします。`zod` や `yup` などのライブラリを使用します。
+- **エラーハンドリング:** 適切な HTTP ステータスコードとエラーメッセージを返します。
+- **認証:** ミドルウェアまたはサーバー側のセッションチェックを使用して、機密性の高いルートを保護します。
 
-## 5. General Best Practices
+## 5. 一般的なベストプラクティス
 
-- **TypeScript:** Use TypeScript for all code. Enable `strict` mode in `tsconfig.json`.
-- **ESLint & Prettier:** Enforce code style and linting. Use the official Next.js ESLint config.
-- **Environment Variables:** Store secrets in `.env.local`. Never commit secrets to version control.
-- **Testing:** Use Jest, React Testing Library, or Playwright. Write tests for all critical logic and components.
-- **Accessibility:** Use semantic HTML and ARIA attributes. Test with screen readers.
-- **Performance:**
-  - Use built-in Image and Font optimization.
-  - Use Suspense and loading states for async data.
-  - Avoid large client bundles; keep most logic in Server Components.
-- **Security:**
-  - Sanitize all user input.
-  - Use HTTPS in production.
-  - Set secure HTTP headers.
-- **Documentation:**
-  - Write clear README and code comments.
-  - Document public APIs and components.
+- **TypeScript:** すべてのコードに TypeScript を使用します。`tsconfig.json` で `strict` モードを有効にします。
+- **ESLint と Prettier:** コードスタイルとリンティングを強制します。公式の Next.js ESLint 設定を使用します。
+- **環境変数:** シークレットは `.env.local` に保存します。シークレットをバージョン管理にコミットしないでください。
+- **テスト:** Jest、React Testing Library、または Playwright を使用します。すべての重要なロジックとコンポーネントのテストを記述します。
+- **アクセシビリティ:** セマンティックな HTML と ARIA 属性を使用します。スクリーンリーダーでテストします。
+- **パフォーマンス:**
+  - 組み込みの Image と Font の最適化を使用します。
+  - 非同期データには Suspense とローディング状態を使用します。
+  - 大きなクライアントバンドルを避けます。ほとんどのロジックはサーバーコンポーネントに保持します。
+- **セキュリティ:**
+  - すべてのユーザー入力をサニタイズします。
+  - 本番環境では HTTPS を使用します。
+  - 安全な HTTP ヘッダーを設定します。
+- **ドキュメント:**
+  - 明確な README とコードコメントを記述します。
+  - パブリック API とコンポーネントを文書化します。
 
-# Avoid Unnecessary Example Files
+# 不要なサンプルファイルを避ける
 
-Do not create example/demo files (like ModalExample.tsx) in the main codebase unless the user specifically requests a live example, Storybook story, or explicit documentation component. Keep the repository clean and production-focused by default.
+ユーザーがライブ例、Storybook ストーリー、または明示的なドキュメントコンポーネントを具体的に要求しない限り、メインコードベースにサンプル/デモファイル（ModalExample.tsx など）を作成しないでください。デフォルトでリポジトリをクリーンで本番環境に焦点を当てた状態に保ちます。
 
-# Always use the latest documentation and guides
-- For every nextjs related request, begin by searching for the most current nextjs documentation, guides, and examples.
-- Use the following tools to fetch and search documentation if they are available:
-  - `resolve_library_id` to resolve the package/library name in the docs.
-  - `get_library_docs` for up to date documentation.
+# 常に最新のドキュメントとガイドを使用する
+- すべての nextjs 関連リクエストについて、最新の nextjs ドキュメント、ガイド、例を検索することから始めます。
+- 利用可能な場合は、次のツールを使用してドキュメントをフェッチおよび検索します：
+  - `resolve_library_id` を使用して、ドキュメント内のパッケージ/ライブラリ名を解決します。
+  - `get_library_docs` を使用して、最新のドキュメントを取得します。
 
