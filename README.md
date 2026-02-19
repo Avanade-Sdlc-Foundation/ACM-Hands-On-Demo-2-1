@@ -1,218 +1,218 @@
-# TravelApp - Next.js Travel Application
+# TravelApp - Next.js トラベルアプリケーション
 
-A comprehensive travel application built with Next.js, TypeScript, and Tailwind CSS that helps users search for trips, manage bookings, view travel guides, and track loyalty points.
+Next.js、TypeScript、Tailwind CSS で構築された包括的な旅行アプリケーションです。ユーザーが旅行の検索、予約の管理、旅行ガイドの閲覧、ロイヤルティポイントの追跡を行うことができます。
 
-## Features
+## 機能
 
-- **Trip Search & Booking**: Browse and search for curated travel experiences with advanced filtering
-- **Travel Guides**: Expert tips and local insights for destinations
-- **Booking Management**: View and manage your travel bookings
-- **Loyalty Points System**: Earn and track points with every booking
-- **Responsive Design**: Mobile-first design that works on all devices
-- **Modern UI**: Clean, accessible interface built with Tailwind CSS
+- **旅行検索＆予約**: 高度なフィルタリング機能でキュレーションされた旅行体験を閲覧・検索
+- **旅行ガイド**: 目的地のエキスパートアドバイスとローカルな洞察
+- **予約管理**: 旅行予約の表示と管理
+- **ロイヤルティポイントシステム**: 予約ごとにポイントを獲得・追跡
+- **レスポンシブデザイン**: すべてのデバイスで動作するモバイルファーストデザイン
+- **モダンUI**: Tailwind CSS で構築されたクリーンでアクセシブルなインターフェース
 
-## Tech Stack
+## 技術スタック
 
-- **Framework**: Next.js 14 with App Router
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **Testing**: Jest + React Testing Library
-- **Linting**: ESLint with Next.js configuration
+- **フレームワーク**: Next.js 14 with App Router
+- **言語**: TypeScript
+- **スタイリング**: Tailwind CSS
+- **テスト**: Jest + React Testing Library
+- **リント**: ESLint with Next.js configuration
 
-## Getting Started
+## 使い始め方
 
-### Prerequisites
+### 前提条件
 
 - Node.js 18+ 
-- npm or yarn package manager
+- npm または yarn パッケージマネージャー
 
-### Installation
+### インストール
 
-1. Clone the repository:
+1. リポジトリをクローン:
 ```bash
 git clone <repository-url>
 cd copilot-agent-demo
 ```
 
-2. Install dependencies:
+2. 依存関係をインストール:
 ```bash
 npm install
 ```
 
-3. Start the development server:
+3. 開発サーバーを起動:
 ```bash
 npm run dev
 ```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser
+4. ブラウザで [http://localhost:3000](http://localhost:3000) を開く
 
-## Docker Support
+## Docker サポート
 
-### Quick Start with Docker
+### Docker でのクイックスタート
 
-Run the application using Docker Compose:
+Docker Compose を使用してアプリケーションを実行:
 
 ```bash
-# Build and run production version
+# 本番バージョンをビルドして実行
 docker-compose up --build
 
-# Run development version with hot-reloading
+# ホットリロード機能付きの開発バージョンを実行
 docker-compose --profile dev up --build travel-app-dev
 ```
 
-### Manual Docker Commands
+### 手動 Docker コマンド
 
 ```bash
-# Build the Docker image
+# Docker イメージをビルド
 docker build -t travel-app .
 
-# Run the container
+# コンテナを実行
 docker run -p 3000:3000 travel-app
 
-# For development with hot-reloading
+# ホットリロード機能付きの開発用
 docker build -f Dockerfile.dev -t travel-app-dev .
 docker run -p 3000:3000 -v $(pwd):/app -v /app/node_modules travel-app-dev
 ```
 
 ### GitHub Package Registry
 
-The application is automatically built and pushed to GitHub Package Registry on:
-- Push to `main` or `develop` branches
-- Tagged releases
-- Pull requests to `main`
+アプリケーションは以下の場合に自動的にビルドされ、GitHub Package Registry にプッシュされます:
+- `main` または `develop` ブランチへのプッシュ
+- タグ付きリリース
+- `main` へのプルリクエスト
 
-Pull the latest image:
+最新のイメージを取得:
 ```bash
 docker pull ghcr.io/ravi-cheetiralaav/copilot-agent-demo:main
 ```
 
-## Development Scripts
+## 開発スクリプト
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run start` - Start production server
-- `npm run lint` - Run ESLint
-- `npm run test` - Run tests
-- `npm run test:watch` - Run tests in watch mode
+- `npm run dev` - 開発サーバーを起動
+- `npm run build` - 本番用ビルド
+- `npm run start` - 本番サーバーを起動
+- `npm run lint` - ESLint を実行
+- `npm run test` - テストを実行
+- `npm run test:watch` - ウォッチモードでテストを実行
 
-## Project Structure
+## プロジェクト構造
 
 ```
-app/                    # Next.js App Router pages and layouts
-├── layout.tsx         # Root layout component
-├── page.tsx           # Home page
-├── trips/             # Trip-related pages
-├── guides/            # Travel guides pages
-├── bookings/          # Booking management pages
-├── points/            # Loyalty points page
-└── globals.css        # Global styles
+app/                    # Next.js App Router ページとレイアウト
+├── layout.tsx         # ルートレイアウトコンポーネント
+├── page.tsx           # ホームページ
+├── trips/             # 旅行関連ページ
+├── guides/            # 旅行ガイドページ
+├── bookings/          # 予約管理ページ
+├── points/            # ロイヤルティポイントページ
+└── globals.css        # グローバルスタイル
 
-components/             # Reusable React components
-├── ui/                # Basic UI components (buttons, inputs, etc.)
-├── layout/            # Layout components (header, footer)
-├── trips/             # Trip-specific components
-├── guides/            # Guide-specific components
-├── bookings/          # Booking-specific components
-└── __tests__/         # Component tests
+components/             # 再利用可能なReactコンポーネント
+├── ui/                # 基本UIコンポーネント（ボタン、入力など）
+├── layout/            # レイアウトコンポーネント（ヘッダー、フッター）
+├── trips/             # 旅行固有のコンポーネント
+├── guides/            # ガイド固有のコンポーネント
+├── bookings/          # 予約固有のコンポーネント
+└── __tests__/         # コンポーネントテスト
 
-lib/                   # Core logic and services
-├── types/             # TypeScript type definitions
-├── data/              # Mock data and data models
-├── services/          # Data service functions
-└── utils.ts           # Utility functions
+lib/                   # コアロジックとサービス
+├── types/             # TypeScript 型定義
+├── data/              # モックデータとデータモデル
+├── services/          # データサービス関数
+└── utils.ts           # ユーティリティ関数
 
-public/                # Static assets
-tests/                 # Test files and test utilities
+public/                # 静的アセット
+tests/                 # テストファイルとテストユーティリティ
 ```
 
-## Features Overview
+## 機能概要
 
-### Trip Search
-- Advanced filtering by destination, category, price, duration, and rating
-- Interactive trip cards with detailed information
-- Individual trip detail pages with booking interface
+### 旅行検索
+- 目的地、カテゴリー、価格、期間、評価による高度フィルタリング
+- 詳細情報付きのインタラクティブな旅行カード
+- 予約インターフェース付きの個別旅行詳細ページ
 
-### Travel Guides
-- Expert-authored destination guides
-- Tag-based categorization
-- Rich content with images and reading time estimates
+### 旅行ガイド
+- エキスパートが執筆した目的地ガイド
+- タグベースの分類
+- 画像と読了時間見積もり付きのリッチコンテンツ
 
-### Booking Management
-- View all bookings with status tracking
-- Cancel bookings with confirmation
-- Detailed booking information including special requests
+### 予約管理
+- ステータストラッキング付きの全予約表示
+- 確認付き予約キャンセル
+- 特別リクエストを含む詳細予約情報
 
-### Loyalty Points System
-- Points earned based on booking value (1 point per $1 spent)
-- Membership tiers: Bronze, Silver, Gold, Platinum
-- Progress tracking and benefits overview
-- Bonus point opportunities
+### ロイヤルティポイントシステム
+- 予約金額に基づくポイント獲得（1ドルにつき1ポイント）
+- メンバーシップティア: ブロンズ、シルバー、ゴールド、プラチナ
+- 進捗追跡と特典概要
+- ボーナスポイント機会
 
-## Code Standards
+## コード標準
 
 ### TypeScript
-- Strict typing enabled
-- Interfaces for all props and data structures
-- Proper type exports and imports
+- 厳密な型指定を有効化
+- すべての props とデータ構造にインターフェース使用
+- 適切な型のエクスポートとインポート
 
-### React Patterns
-- Functional components with hooks
-- Server components for data fetching
-- Client components marked with 'use client' directive
-- Proper separation of concerns
+### React パターン
+- フック付き関数コンポーネント
+- データフェッチング用サーバーコンポーネント
+- 'use client' ディレクティブでマークされたクライアントコンポーネント
+- 適切な関心の分離
 
-### Styling Guidelines
-- Tailwind CSS classes prioritized
-- Consistent spacing and color schemes
-- Responsive design patterns
-- Accessibility considerations
+### スタイリングガイドライン
+- Tailwind CSS クラスを優先
+- 一貫したスペーシングと色スキーム
+- レスポンシブデザインパターン
+- アクセシビリティの考慮
 
-### Testing
-- Jest configuration for Next.js
-- React Testing Library for component tests
-- Service layer unit tests
-- Test coverage for critical paths
+### テスト
+- Next.js 用 Jest 設定
+- コンポーネントテスト用 React Testing Library
+- サービス層ユニットテスト
+- 重要なパスのテストカバレッジ
 
-## Development Guidelines
+## 開発ガイドライン
 
-### Before Each Commit
-1. Run `npm run lint` to ensure code standards
-2. Run `npm run test` to verify all tests pass
-3. Verify components follow Next.js App Router patterns
-4. Update documentation if adding new features
+### 各コミット前に
+1. `npm run lint` を実行してコード標準を確認
+2. `npm run test` を実行してすべてのテストが通ることを確認
+3. コンポーネントが Next.js App Router パターンに従っていることを確認
+4. 新機能を追加する場合はドキュメントを更新
 
-### Component Development
-- Use TypeScript interfaces for all props
-- Follow single-responsibility principle
-- Implement proper error handling and loading states
-- Include meaningful alt text for images
-- Optimize for performance
+### コンポーネント開発
+- すべての props に TypeScript インターフェースを使用
+- 単一責任原則に従う
+- 適切なエラーハンドリングとローディング状態を実装
+- 画像に意味のある alt テキストを含める
+- パフォーマンスを最適化
 
-### Adding New Features
-1. Create types in `lib/types/`
-2. Add mock data in `lib/data/`
-3. Implement service functions in `lib/services/`
-4. Create reusable components in `components/`
-5. Build pages in `app/` directory
-6. Add tests for new functionality
-7. Update this README
+### 新機能追加
+1. `lib/types/` で型を作成
+2. `lib/data/` でモックデータを追加
+3. `lib/services/` でサービス関数を実装
+4. `components/` で再利用可能なコンポーネントを作成
+5. `app/` ディレクトリでページを構築
+6. 新機能のテストを追加
+7. この README を更新
 
-## API Structure
+## API 構造
 
-The application uses mock data and service functions to simulate a backend API. Key services include:
+アプリケーションはバックエンド API をシミュレートするためにモックデータとサービス関数を使用します。主要サービス:
 
-- **TripService**: Search trips, get trip details, featured trips
-- **GuideService**: Fetch travel guides, filter by destination
-- **BookingService**: Create bookings, manage user bookings
+- **TripService**: 旅行検索、旅行詳細取得、注目の旅行
+- **GuideService**: 旅行ガイドの取得、目的地によるフィルタリング
+- **BookingService**: 予約作成、ユーザー予約管理
 
-## Contributing
+## コントリビューション
 
-1. Follow the established code patterns
-2. Maintain TypeScript strict mode compliance
-3. Add tests for new components and functions
-4. Update documentation for new features
-5. Ensure responsive design implementation
+1. 確立されたコードパターンに従う
+2. TypeScript strict モードの準拠を維持
+3. 新しいコンポーネントと関数にテストを追加
+4. 新機能のドキュメントを更新
+5. レスポンシブデザインの実装を確保
 
-## License
+## ライセンス
 
-This project is part of a demo application for showcasing Next.js and modern web development practices.
+このプロジェクトは、Next.js とモダンな Web 開発プラクティスを紹介するデモアプリケーションの一部です。
